@@ -1,20 +1,52 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-export default function Headband({
-  title,
-  scrollToTop = false,
+export default function Cloak({
+  onOffline,
+  onOnline,
+  renderWhen = "offline",
   children,
 }: {
-  title: string;
-  scrollToTop?: boolean;
-  children: JSX.Element;
+  readonly onOffline?: () => void;
+  readonly onOnline?: () => void;
+  readonly renderWhen?: "online" | "offline";
+  readonly children: JSX.Element;
 }) {
-  useEffect(() => {
-    document.title = title;
-    if (scrollToTop) {
-      window.scrollTo(0, 0);
-    }
-  });
+  const isOffline = useCloak({ onOffline, onOnline });
 
-  return children;
+  if (renderWhen === "online") {
+    return isOffline ? null : children;
+  }
+  return isOffline ? children : null;
+}
+
+export function useCloak(params?: {
+  onOffline?: () => void;
+  onOnline?: () => void;
+}): boolean {
+  const [isOffline, setIsOffline] = useState<boolean>(false);
+
+  const offline = () => {
+    setIsOffline(true);
+    if (params?.onOffline !== undefined) {
+      params?.onOffline;
+    }
+  };
+
+  const online = () => {
+    setIsOffline(false);
+    if (params?.onOffline !== undefined) {
+      params?.onOffline;
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("online", online);
+    window.addEventListener("offline", offline);
+    return () => {
+      window.removeEventListener("online", online);
+      window.removeEventListener("offline", offline);
+    };
+  }, []);
+
+  return isOffline;
 }

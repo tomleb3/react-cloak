@@ -1,29 +1,30 @@
 {
-  "name": "react-headband",
-  "version": "1.1.0",
-  "description": "A simple controller for your document titles",
+  "name": "react-cloak",
+  "version": "0.0.5",
+  "description": "An offline manager",
   "author": "tomleb3",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tomleb3/react-headband.git"
+    "url": "git+https://github.com/tomleb3/react-cloak.git"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./dist && tsc --declaration",
+    "build": "rm -rf ./dist && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bugs": {
-    "url": "https://github.com/tomleb3/react-headband/issues"
+    "url": "https://github.com/tomleb3/react-cloak/issues"
   },
-  "homepage": "https://github.com/tomleb3/react-headband#readme",
+  "homepage": "https://github.com/tomleb3/react-cloak#readme",
   "keywords": [
     "react",
-    "headband",
-    "document",
-    "title",
-    "controller"
+    "cloak",
+    "online",
+    "offline",
+    "status",
+    "connectivity"
   ],
   "files": [
     "/dist"
